@@ -1,9 +1,12 @@
 {
-  "name": "react-card-tree",
+  "name": "react-card-tree-example",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "lodash": "^4.17.4",
+    "prop-types": "^15.6.0",
     "react": "^16.1.1",
+    "react-card-tree": "file:..",
     "react-dom": "^16.1.1"
   },
   "scripts": {
@@ -21,6 +24,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
+    "html-webpack-plugin": "^2.30.1",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.5"
   }

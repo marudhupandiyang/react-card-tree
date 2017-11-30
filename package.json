@@ -2,13 +2,14 @@
   "name": "react-card-tree",
   "version": "0.0.1",
   "description": "Displays a react card tree",
-  "main": "dist/index.jsx",
+  "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "prepublish": "npm run build",
     "npm:publish": "npm run prepublish && npm publish",
-    "lint": "eslint src/"
+    "lint": "eslint src/",
+    "start": "webpack --config webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -36,12 +37,12 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.5.1",
-    "lodash": "^4.17.4",
-    "prop-types": "^15.6.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.5"
   },
   "dependencies": {
-    "react": "^16.2.0"
+    "react": "^16.2.0",
+    "prop-types": "^15.6.0",
+    "lodash": "^4.17.4"
   }
 }

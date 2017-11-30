@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { map } from 'lodash';
 
 class CardTree extends React.Component {
   constructor(props) {
@@ -7,9 +9,29 @@ class CardTree extends React.Component {
   }
 
   render() {
-    return (<div> Hello </div>);
+    const {
+      data,
+    } = this.props;
+
+    debugger; // eslint-disable-line
+
+    return (
+      <div
+        className="card-tree-container"
+      >
+        {
+          map(data, section => (
+            <div key={section}>
+              {section}
+            </div>))
+        }
+      </div>
+    );
   }
 }
 
+CardTree.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape([])).isRequired,
+};
 
 export default CardTree;
