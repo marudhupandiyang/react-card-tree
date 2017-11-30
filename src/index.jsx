@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import { map, keys, isEmpty, isArray } from 'lodash';
 
 class CardTree extends React.Component {
+  static defaultState() {
+    return {
+      stepNames: [],
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -10,14 +16,8 @@ class CardTree extends React.Component {
     };
   }
 
-  defaultState() {
-    return {
-      stepNames: [],
-    }
-  }
-
   componentWillReceiveProps(nextProps) {
-    if(this.props.data !== nextProps.data) {
+    if (this.props.data !== nextProps.data) {
       this.setState({
         ...this.parseTree(nextProps),
       });

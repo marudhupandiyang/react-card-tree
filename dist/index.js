@@ -496,6 +496,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CardTree = function (_React$Component) {
   _inherits(CardTree, _React$Component);
 
+  _createClass(CardTree, null, [{
+    key: 'defaultState',
+    value: function defaultState() {
+      return {
+        stepNames: []
+      };
+    }
+  }]);
+
   function CardTree(props) {
     _classCallCheck(this, CardTree);
 
@@ -520,13 +529,6 @@ var CardTree = function (_React$Component) {
   }
 
   _createClass(CardTree, [{
-    key: 'defaultState',
-    value: function defaultState() {
-      return {
-        stepNames: []
-      };
-    }
-  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
       if (this.props.data !== nextProps.data) {
