@@ -4,28 +4,35 @@ import CardTree from 'react-card-tree';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [
-        {
-          step1: { key1: 'value1', key2: 'value2' },
-          step2: { key1: 'value1', key2: 'value2' },
-          step3: { key1: 'value1', key2: 'value2' },
-        },
-      ],
-    };
-  }
+  onCardClick = (stepName, stepIndex, data) => {
+    console.log(`Clicked on ${stepName}. Associated Data: ${JSON.stringify(data)}`); // eslint-disable-line
+  };
+
+  getStepTitle = (stepName, stepIndex) => `Step ${stepIndex + 1}`;
+
+  getStepData = (stepName, stepIndex) => [
+    { id: 1, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
+    { id: 2, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
+    { id: 3, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
+    { id: 4, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
+    { id: 5, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
+    { id: 6, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
+    { id: 7, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
+  ];
 
   render() {
     const {
-      data,
-    } = this.state;
+      getStepTitle,
+      getStepData,
+    } = this;
 
     return (
       <div>
         <CardTree
-          data={data}
+          getStepTitle={getStepTitle}
+          steps={['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6', 'Step 7']}
+          getStepData={getStepData}
+          onCardClick={this.onCardClick}
         />
       </div>);
   }
