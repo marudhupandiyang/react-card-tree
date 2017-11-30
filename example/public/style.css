@@ -1,8 +1,26 @@
 body {
-  background-color: #ccc;
 }
 
-.card-tree-container {
+.card-tree.card-tree-container {
   width: 90%;
   background-color: #fff;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: rgba(0,0,0,0.2);
+}
+
+.card-tree .card-section-step {
+  width: 200px;
+  display: inline-block;
+  background-color: #fff;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+}
+
+.card-tree .card-section-step-title {
+  text-align: center;
+  border-bottom: 1px solid #333;
+  margin-bottom: 5px;
+  padding: 5px;
 }

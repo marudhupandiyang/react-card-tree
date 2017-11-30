@@ -25,7 +25,7 @@ class CardTree extends React.Component {
   }
 
   parseTree = ({ data } = this.props) => {
-    const newState = this.defaultState();
+    const newState = CardTree.defaultState();
     // If its empty or not an array, reset state and quit
     if (!isEmpty(data) && isArray(data)) {
       const firstTreeData = data[0];
@@ -42,12 +42,12 @@ class CardTree extends React.Component {
 
     return (
       <div
-        className="card-tree-container"
+        className="card-tree card-tree-container"
       >
         {
           map(stepNames, step => (
-            <div key={step}>
-              {step}
+            <div key={step} className="card-section-step">
+              <div className="card-section-step-title">{step}</div>
             </div>))
         }
       </div>

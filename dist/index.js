@@ -514,7 +514,7 @@ var CardTree = function (_React$Component) {
       var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this.props,
           data = _ref.data;
 
-      var newState = _this.defaultState();
+      var newState = CardTree.defaultState();
       // If its empty or not an array, reset state and quit
       if (!(0, _lodash.isEmpty)(data) && (0, _lodash.isArray)(data)) {
         var firstTreeData = data[0];
@@ -544,13 +544,17 @@ var CardTree = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         {
-          className: 'card-tree-container'
+          className: 'card-tree card-tree-container'
         },
         (0, _lodash.map)(stepNames, function (step) {
           return _react2.default.createElement(
             'div',
-            { key: step },
-            step
+            { key: step, className: 'card-section-step' },
+            _react2.default.createElement(
+              'div',
+              { className: 'card-section-step-title' },
+              step
+            )
           );
         })
       );
