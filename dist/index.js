@@ -108,10 +108,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var CardTree = function (_React$Component) {
   _inherits(CardTree, _React$Component);
 
-  function CardTree() {
+  function CardTree(props) {
     _classCallCheck(this, CardTree);
 
-    return _possibleConstructorReturn(this, (CardTree.__proto__ || Object.getPrototypeOf(CardTree)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (CardTree.__proto__ || Object.getPrototypeOf(CardTree)).call(this, props));
+
+    _this.state = {};
+    return _this;
   }
 
   _createClass(CardTree, [{
