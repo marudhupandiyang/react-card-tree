@@ -3,7 +3,7 @@ var webpack = require('webpack')
 module.exports = {
 
   entry: [
-    './src/index.js'
+    './src/index.jsx'
   ],
   output: {
     library: 'react-card-tree',
@@ -29,13 +29,14 @@ module.exports = {
       }
     }
   ],
-
   module: {
     loaders: [
       { exclude: /node_modules/, loader: 'babel-loader' }
     ]
   },
-
+  resolve: {
+    extensions: [".jsx", ".js"],
+  },
   node: {
     Buffer: false
   },

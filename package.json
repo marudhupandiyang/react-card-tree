@@ -2,12 +2,13 @@
   "name": "react-card-tree",
   "version": "0.0.1",
   "description": "Displays a react card tree",
-  "main": "dist/index.js",
+  "main": "dist/index.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
-    "prepublish": "npm run build",
-    "npm:publish": "npm run prepublish && npm publish"
+    "prepublish": "npm run lint && npm run build",
+    "npm:publish": "npm run prepublish && npm publish",
+    "lint": "eslint src/"
   },
   "repository": {
     "type": "git",

@@ -3,7 +3,7 @@ var webpack = require('webpack')
 module.exports = {
 
   entry: [
-    './src/index.js'
+    './src/index.jsx'
   ],
   output: {
     path: __dirname + '/public',
@@ -14,6 +14,9 @@ module.exports = {
     loaders: [
       { exclude: /node_modules/, loader: 'babel-loader' }
     ]
+  },
+  resolve: {
+    extensions: [".jsx", ".js"],
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin()
