@@ -1,6 +1,7 @@
 import React from 'react';
 
-class CardTree extends React.Component {
+class CardTree extends React.Component
+{
 
 }
 
