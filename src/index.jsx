@@ -47,7 +47,7 @@ class CardTree extends React.Component {
 
 
   getSummaryCard = (stepName, stepIndex, data, dataIndex) => {
-    const SummaryCardComponent = this.props.summaryCard || <SummaryCard />;
+    const SummaryCardComponent = this.props.summaryCard;
     return (
       <div
         className={`card-summary ${this.isCardSelected(stepIndex, data) ? 'selected' : ''}`}
@@ -59,7 +59,7 @@ class CardTree extends React.Component {
         role="button"
         tabIndex="0"
       >
-        {React.cloneElement(SummaryCardComponent, { data })}
+        {React.createElement(SummaryCardComponent, { data })}
       </div>);
   }
 
@@ -118,7 +118,7 @@ CardTree.defaultProps = {
   showSectionTitle: true,
   stepWidth: 300,
   onCardClick: null,
-  summaryCard: null,
+  summaryCard: SummaryCard,
 };
 
 CardTree.propTypes = {

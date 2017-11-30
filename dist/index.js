@@ -537,7 +537,7 @@ var CardTree = function (_React$Component) {
     };
 
     _this.getSummaryCard = function (stepName, stepIndex, data, dataIndex) {
-      var SummaryCardComponent = _this.props.summaryCard || _react2.default.createElement(_summaryCard2.default, null);
+      var SummaryCardComponent = _this.props.summaryCard;
       return _react2.default.createElement(
         'div',
         {
@@ -552,7 +552,7 @@ var CardTree = function (_React$Component) {
           role: 'button',
           tabIndex: '0'
         },
-        _react2.default.cloneElement(SummaryCardComponent, { data: data })
+        _react2.default.createElement(SummaryCardComponent, { data: data })
       );
     };
 
@@ -623,7 +623,7 @@ CardTree.defaultProps = {
   showSectionTitle: true,
   stepWidth: 300,
   onCardClick: null,
-  summaryCard: null
+  summaryCard: _summaryCard2.default
 };
 
 CardTree.propTypes = {

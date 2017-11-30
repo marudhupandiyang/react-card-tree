@@ -1,7 +1,16 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import CardTree from 'react-card-tree';
 
+
+/*
+ * Custom Summary Card
+const SCard = ({ data }) => (<div>{data.title}</div>);
+
+SCard.propTypes = {
+  data: PropTypes.shape({}).isRequired,
+};
+*/
 
 class App extends React.Component {
   onCardClick = (stepName, stepIndex, data) => {
