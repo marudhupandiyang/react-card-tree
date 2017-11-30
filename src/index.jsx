@@ -1,28 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { map, keys, isEmpty, isArray } from 'lodash';
 
 class CardTree extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      ...this.parseTree(props),
+    };
   }
+
+  defaultState() {
+    return {
+      stepNames: [],
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.data !== nextProps.data) {
+      this.setState({
+        ...this.parseTree(nextProps),
+      });
+    }
+  }
+
+  parseTree = ({ data } = this.props) => {
+    const newState = this.defaultState();
+    // If its empty or not an array, reset state and quit
+    if (!isEmpty(data) && isArray(data)) {
+      const firstTreeData = data[0];
+      newState.stepNames = keys(firstTreeData);
+    }
+
+    return newState;
+  };
 
   render() {
     const {
-      data,
-    } = this.props;
-
-    debugger; // eslint-disable-line
+      stepNames,
+    } = this.state;
 
     return (
       <div
         className="card-tree-container"
       >
         {
-          map(data, section => (
-            <div key={section}>
-              {section}
+          map(stepNames, step => (
+            <div key={step}>
+              {step}
             </div>))
         }
       </div>

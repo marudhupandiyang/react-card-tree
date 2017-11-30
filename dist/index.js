@@ -471,6 +471,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(7);
@@ -499,28 +501,54 @@ var CardTree = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (CardTree.__proto__ || Object.getPrototypeOf(CardTree)).call(this, props));
 
-    _this.state = {};
+    _this.parseTree = function () {
+      var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this.props,
+          data = _ref.data;
+
+      var newState = _this.defaultState();
+      // If its empty or not an array, reset state and quit
+      if (!(0, _lodash.isEmpty)(data) && (0, _lodash.isArray)(data)) {
+        var firstTreeData = data[0];
+        newState.stepNames = (0, _lodash.keys)(firstTreeData);
+      }
+
+      return newState;
+    };
+
+    _this.state = _extends({}, _this.parseTree(props));
     return _this;
   }
 
   _createClass(CardTree, [{
+    key: 'defaultState',
+    value: function defaultState() {
+      return {
+        stepNames: []
+      };
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.props.data !== nextProps.data) {
+        this.setState(_extends({}, this.parseTree(nextProps)));
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      var data = this.props.data;
+      var stepNames = this.state.stepNames;
 
-
-      debugger; // eslint-disable-line
 
       return _react2.default.createElement(
         'div',
         {
           className: 'card-tree-container'
         },
-        (0, _lodash.map)(data, function (section) {
+        (0, _lodash.map)(stepNames, function (step) {
           return _react2.default.createElement(
             'div',
-            { key: section },
-            section
+            { key: step },
+            step
           );
         })
       );

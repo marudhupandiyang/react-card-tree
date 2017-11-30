@@ -36,6 +36,8 @@ module.exports = {
         template: './public/index.html', // Load a custom template
         inject: 'body' // Inject all scripts into the body
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
   ],
   devServer: {
     contentBase: './public',
