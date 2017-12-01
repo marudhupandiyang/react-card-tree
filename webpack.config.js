@@ -1,4 +1,5 @@
 var webpack = require('webpack')
+var Visualizer = require('webpack-visualizer-plugin');
 
 module.exports = {
 
@@ -53,6 +54,7 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.OccurrenceOrderPlugin()
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new Visualizer()
   ]
 }

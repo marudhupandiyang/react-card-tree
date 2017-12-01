@@ -512,6 +512,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(4);
@@ -535,6 +537,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _ref = _jsx('div', {
+  className: 'clearfix'
+});
 
 var CardTree = function (_React$Component) {
   _inherits(CardTree, _React$Component);
@@ -579,22 +585,17 @@ var CardTree = function (_React$Component) {
 
     _this.getSummaryCard = function (stepName, stepIndex, data, dataIndex) {
       var SummaryCardComponent = _this.props.summaryCard;
-      return _react2.default.createElement(
-        'div',
-        {
-          className: 'card-summary ' + (_this.isCardSelected(stepIndex, data) ? 'selected' : ''),
-          key: data.id,
-          onClick: function onClick() {
-            _this.onCardClick(stepName, stepIndex, data, dataIndex);
-          },
-          onKeyPress: function onKeyPress(e) {
-            _this.onCardKeyPress(e, stepName, stepIndex, data, dataIndex);
-          },
-          role: 'button',
-          tabIndex: '0'
+      return _jsx('div', {
+        className: 'card-summary ' + (_this.isCardSelected(stepIndex, data) ? 'selected' : ''),
+        onClick: function onClick() {
+          _this.onCardClick(stepName, stepIndex, data, dataIndex);
         },
-        _react2.default.createElement(SummaryCardComponent, { data: data, stepName: stepName, dataIndex: dataIndex })
-      );
+        onKeyPress: function onKeyPress(e) {
+          _this.onCardKeyPress(e, stepName, stepIndex, data, dataIndex);
+        },
+        role: 'button',
+        tabIndex: '0'
+      }, data.id, _react2.default.createElement(SummaryCardComponent, { data: data, stepName: stepName, dataIndex: dataIndex }));
     };
 
     _this.isCardSelected = function (stepIndex, data) {
@@ -630,30 +631,21 @@ var CardTree = function (_React$Component) {
           stepWidth = _props.stepWidth;
 
 
-      return _react2.default.createElement(
-        'div',
-        {
-          className: 'card-tree card-tree-container ',
-          style: { width: steps.length * stepWidth + steps.length * 30 + 'px' }
-        },
-        (0, _lodash.map)(steps, function (stepName, stepIndex) {
-          var stepData = _this2.getStepData(stepName, stepIndex);
-          return _react2.default.createElement(
-            'div',
-            { key: stepName, className: 'card-section-step', style: { width: stepWidth } },
-            showSectionTitle && _react2.default.createElement(
-              'div',
-              { className: 'card-section-step-title' },
-              getStepTitle(stepName, stepIndex)
-            ) // eslint-disable-line
-            ,
-            (0, _lodash.map)(stepData, function (data, dataIndex) {
-              return _this2.getSummaryCard(stepName, stepIndex, data, dataIndex);
-            })
-          );
-        }),
-        _react2.default.createElement('div', { className: 'clearfix' })
-      );
+      return _jsx('div', {
+        className: 'card-tree card-tree-container ',
+        style: { width: steps.length * stepWidth + steps.length * 30 + 'px' }
+      }, void 0, (0, _lodash.map)(steps, function (stepName, stepIndex) {
+        var stepData = _this2.getStepData(stepName, stepIndex);
+        return _jsx('div', {
+          className: 'card-section-step',
+          style: { width: stepWidth }
+        }, stepName, showSectionTitle && _jsx('div', {
+          className: 'card-section-step-title'
+        }, void 0, getStepTitle(stepName, stepIndex)) // eslint-disable-line
+        , (0, _lodash.map)(stepData, function (data, dataIndex) {
+          return _this2.getSummaryCard(stepName, stepIndex, data, dataIndex);
+        }));
+      }), _ref);
     }
   }]);
 
@@ -665,16 +657,6 @@ CardTree.defaultProps = {
   stepWidth: 300,
   onCardClick: null,
   summaryCard: _summaryCard2.default
-};
-
-CardTree.propTypes = {
-  getStepTitle: _propTypes2.default.func.isRequired,
-  getStepData: _propTypes2.default.func.isRequired,
-  onCardClick: _propTypes2.default.func,
-  steps: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired,
-  showSectionTitle: _propTypes2.default.bool,
-  stepWidth: _propTypes2.default.number,
-  summaryCard: _propTypes2.default.func // eslint-disable-line
 };
 
 exports.default = CardTree;
@@ -1475,6 +1457,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _jsx = function () { var REACT_ELEMENT_TYPE = typeof Symbol === "function" && Symbol.for && Symbol.for("react.element") || 0xeac7; return function createRawReactElement(type, props, key, children) { var defaultProps = type && type.defaultProps; var childrenLength = arguments.length - 3; if (!props && childrenLength !== 0) { props = {}; } if (props && defaultProps) { for (var propName in defaultProps) { if (props[propName] === void 0) { props[propName] = defaultProps[propName]; } } } else if (!props) { props = defaultProps || {}; } if (childrenLength === 1) { props.children = children; } else if (childrenLength > 1) { var childArray = Array(childrenLength); for (var i = 0; i < childrenLength; i++) { childArray[i] = arguments[i + 3]; } props.children = childArray; } return { $$typeof: REACT_ELEMENT_TYPE, type: type, key: key === undefined ? null : '' + key, ref: null, props: props, _owner: null }; }; }();
+
 var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
@@ -1487,24 +1471,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var SummaryCard = function SummaryCard(_ref) {
   var data = _ref.data;
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'div',
-      { className: 'card-summary-title' },
-      data.title
-    ),
-    _react2.default.createElement(
-      'div',
-      { className: 'card-summary-content' },
-      data.content
-    )
-  );
-};
-
-SummaryCard.propTypes = {
-  data: _propTypes2.default.shape({}).isRequired
+  return _jsx('div', {}, void 0, _jsx('div', {
+    className: 'card-summary-title'
+  }, void 0, data.title), _jsx('div', {
+    className: 'card-summary-content'
+  }, void 0, data.content));
 };
 
 exports.default = SummaryCard;
