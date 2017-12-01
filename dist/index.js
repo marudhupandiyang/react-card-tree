@@ -7,7 +7,7 @@
 		exports["react-card-tree"] = factory(require("react"), require("lodash"));
 	else
 		root["react-card-tree"] = factory(root["React"], root["_"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_7__, __WEBPACK_EXTERNAL_MODULE_13__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_13__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -386,6 +386,47 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 /* 4 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+if (process.env.NODE_ENV !== 'production') {
+  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
+    Symbol.for &&
+    Symbol.for('react.element')) ||
+    0xeac7;
+
+  var isValidElement = function(object) {
+    return typeof object === 'object' &&
+      object !== null &&
+      object.$$typeof === REACT_ELEMENT_TYPE;
+  };
+
+  // By explicitly using `prop-types` you are opting into new development behavior.
+  // http://fb.me/prop-types-in-prod
+  var throwOnDirectAccess = true;
+  module.exports = __webpack_require__(9)(isValidElement, throwOnDirectAccess);
+} else {
+  // By explicitly using `prop-types` you are opting into new production behavior.
+  // http://fb.me/prop-types-in-prod
+  module.exports = __webpack_require__(12)();
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -454,14 +495,14 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(6);
+module.exports = __webpack_require__(8);
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -473,15 +514,19 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = __webpack_require__(7);
+var _react = __webpack_require__(4);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(8);
+var _propTypes = __webpack_require__(5);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _lodash = __webpack_require__(13);
+
+var _summaryCard = __webpack_require__(14);
+
+var _summaryCard2 = _interopRequireDefault(_summaryCard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -499,30 +544,115 @@ var CardTree = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (CardTree.__proto__ || Object.getPrototypeOf(CardTree)).call(this, props));
 
-    _this.state = {};
+    _this.onCardClick = function (stepName, stepIndex, data, dataIndex) {
+      var selectedStepData = _this.state.selectedStepData;
+
+
+      if (stepIndex <= selectedStepData.length) {
+        var newSelectedStepData = [].concat(selectedStepData);
+        newSelectedStepData.length = stepIndex + 1;
+        newSelectedStepData[stepIndex] = { data: data, dataIndex: dataIndex };
+        _this.setState({
+          selectedStepData: newSelectedStepData
+        });
+
+        // if the user has sent a card click func, call it..
+        if (_this.props.onCardClick) {
+          _this.props.onCardClick(stepName, stepIndex, data, dataIndex);
+        }
+      }
+    };
+
+    _this.onCardKeyPress = function (e, stepName, stepIndex, data, dataIndex) {
+      if (e.keyCode === 32) {
+        _this.onCardClick(stepName, stepIndex, data, dataIndex);
+      }
+    };
+
+    _this.getStepData = function (stepName, stepIndex) {
+      if (_this.canGetStepData(stepIndex)) {
+        return _this.props.getStepData(stepName, stepIndex, _this.state.selectedStepData[stepIndex - 1]) || [];
+      }
+
+      return [];
+    };
+
+    _this.getSummaryCard = function (stepName, stepIndex, data, dataIndex) {
+      var SummaryCardComponent = _this.props.summaryCard;
+      return _react2.default.createElement(
+        'div',
+        {
+          className: 'card-summary ' + (_this.isCardSelected(stepIndex, data) ? 'selected' : ''),
+          key: data.id,
+          onClick: function onClick() {
+            _this.onCardClick(stepName, stepIndex, data, dataIndex);
+          },
+          onKeyPress: function onKeyPress(e) {
+            _this.onCardKeyPress(e, stepName, stepIndex, data, dataIndex);
+          },
+          role: 'button',
+          tabIndex: '0'
+        },
+        _react2.default.createElement(SummaryCardComponent, { data: data })
+      );
+    };
+
+    _this.isCardSelected = function (stepIndex, data) {
+      var selectedStepData = _this.state.selectedStepData;
+
+
+      return selectedStepData.length >= stepIndex && selectedStepData[stepIndex] && selectedStepData[stepIndex].data.id === data.id;
+    };
+
+    _this.canGetStepData = function (stepIndex) {
+      return _this.state.selectedStepData.length >= stepIndex;
+    };
+
+    _this.state = {
+      selectedStepData: []
+    };
     return _this;
   }
+
+  // if we are on first step
+  // or we have slected the previous step card, then load current step data
+
 
   _createClass(CardTree, [{
     key: 'render',
     value: function render() {
-      var data = this.props.data;
+      var _this2 = this;
 
+      var _props = this.props,
+          showSectionTitle = _props.showSectionTitle,
+          getStepTitle = _props.getStepTitle,
+          steps = _props.steps,
+          stepWidth = _props.stepWidth;
 
-      debugger; // eslint-disable-line
 
       return _react2.default.createElement(
         'div',
         {
-          className: 'card-tree-container'
+          className: 'card-tree card-tree-container ',
+          style: { width: steps.length * stepWidth + steps.length * 30 + 'px' }
         },
-        (0, _lodash.map)(data, function (section) {
+        (0, _lodash.map)(steps, function (stepName, stepIndex) {
+          var stepData = _this2.getStepData(stepName, stepIndex);
           return _react2.default.createElement(
             'div',
-            { key: section },
-            section
+            { key: stepName, className: 'card-section-step', style: { width: stepWidth } },
+            showSectionTitle && _react2.default.createElement(
+              'div',
+              { className: 'card-section-step-title' },
+              getStepTitle(stepName, stepIndex)
+            ) // eslint-disable-line
+            ,
+            (0, _lodash.map)(stepData, function (data, dataIndex) {
+              return _this2.getSummaryCard(stepName, stepIndex, data, dataIndex);
+            })
           );
-        })
+        }),
+        _react2.default.createElement('div', { className: 'clearfix' })
       );
     }
   }]);
@@ -530,52 +660,24 @@ var CardTree = function (_React$Component) {
   return CardTree;
 }(_react2.default.Component);
 
+CardTree.defaultProps = {
+  showSectionTitle: true,
+  stepWidth: 300,
+  onCardClick: null,
+  summaryCard: _summaryCard2.default
+};
+
 CardTree.propTypes = {
-  data: _propTypes2.default.arrayOf(_propTypes2.default.shape([])).isRequired
+  getStepTitle: _propTypes2.default.func.isRequired,
+  getStepData: _propTypes2.default.func.isRequired,
+  onCardClick: _propTypes2.default.func,
+  steps: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired,
+  showSectionTitle: _propTypes2.default.bool,
+  stepWidth: _propTypes2.default.number,
+  summaryCard: _propTypes2.default.object // eslint-disable-line
 };
 
 exports.default = CardTree;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_7__;
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-if (process.env.NODE_ENV !== 'production') {
-  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&
-    Symbol.for &&
-    Symbol.for('react.element')) ||
-    0xeac7;
-
-  var isValidElement = function(object) {
-    return typeof object === 'object' &&
-      object !== null &&
-      object.$$typeof === REACT_ELEMENT_TYPE;
-  };
-
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(9)(isValidElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(12)();
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 9 */
@@ -593,7 +695,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 var emptyFunction = __webpack_require__(1);
 var invariant = __webpack_require__(2);
-var warning = __webpack_require__(4);
+var warning = __webpack_require__(6);
 var assign = __webpack_require__(10);
 
 var ReactPropTypesSecret = __webpack_require__(3);
@@ -1240,7 +1342,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(2);
-  var warning = __webpack_require__(4);
+  var warning = __webpack_require__(6);
   var ReactPropTypesSecret = __webpack_require__(3);
   var loggedTypeFailures = {};
 }
@@ -1361,6 +1463,51 @@ module.exports = function() {
 /***/ (function(module, exports) {
 
 module.exports = __WEBPACK_EXTERNAL_MODULE_13__;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(4);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(5);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SummaryCard = function SummaryCard(_ref) {
+  var data = _ref.data;
+  return _react2.default.createElement(
+    'div',
+    null,
+    _react2.default.createElement(
+      'div',
+      { className: 'card-summary-title' },
+      data.title
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'card-summary-content' },
+      data.content
+    )
+  );
+};
+
+SummaryCard.propTypes = {
+  data: _propTypes2.default.shape({}).isRequired
+};
+
+exports.default = SummaryCard;
 
 /***/ })
 /******/ ]);
