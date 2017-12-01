@@ -8,7 +8,7 @@ module.exports = {
   ],
   output: {
     path: __dirname + '/public',
-    publicPath: '/',
+    publicPath: '',
     filename: 'index.js'
   },
   module: {
@@ -33,7 +33,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
-        template: './public/index.html', // Load a custom template
+        template: './index.html', // Load a custom template
         inject: 'body' // Inject all scripts into the body
     }),
     new webpack.HotModuleReplacementPlugin(),

@@ -20,3 +20,5 @@ typings/
 *.tgz
 
 .DS_Store
+
+dist/stats.html
