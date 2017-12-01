@@ -39,7 +39,11 @@ class CardTree extends React.Component {
 
   getStepData = (stepName, stepIndex) => {
     if (this.canGetStepData(stepIndex)) {
-      return this.props.getStepData(stepName, stepIndex) || [];
+      return this.props.getStepData(
+        stepName,
+        stepIndex,
+        this.state.selectedStepData[stepIndex - 1],
+      ) || [];
     }
 
     return [];

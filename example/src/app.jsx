@@ -1,33 +1,112 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CardTree from 'react-card-tree';
 
 
-/*
- * Custom Summary Card
-const SCard = ({ data }) => (<div>{data.title}</div>);
-
-SCard.propTypes = {
-  data: PropTypes.shape({}).isRequired,
-};
-*/
-
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.data = [
+      {
+        id: 1,
+        title: 'class X',
+        content: 'Class X content',
+        sections: [
+          {
+            id: 1,
+            title: 'Class X-A',
+            content: 'Section X-A',
+            students: [
+              { id: 1, title: 'Raju', content: 'Reg No: 01' },
+              { id: 2, title: 'Kumar', content: 'Reg No: 02' },
+            ],
+          },
+          {
+            id: 2,
+            title: 'Class X-B',
+            content: 'Section X-B',
+            students: [
+              {
+                id: 3,
+                title: 'Suresh',
+                content: 'Reg No: 03',
+              },
+              {
+                id: 4,
+                title: 'John',
+                content: 'Reg No: 04',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 2,
+        title: 'class IX',
+        content: 'Class IX content',
+        sections: [
+          {
+            id: 3,
+            title: 'Class IX-A',
+            content: 'Section IX-A',
+            students: [
+              {
+                id: 5,
+                title: 'Avera',
+                content: 'Reg No: 05',
+              },
+              {
+                id: 6,
+                title: 'Bradley',
+                content: 'Reg No: 06',
+              },
+            ],
+          },
+          {
+            id: 4,
+            title: 'Class IX-B',
+            content: 'Section IX-B',
+            students: [
+              {
+                id: 7,
+                title: 'Kimberley',
+                content: 'Reg No: 07',
+              },
+              {
+                id: 8,
+                title: 'Ross',
+                content: 'Reg No: 08',
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    this.steps = ['Class', 'Sections', 'Students'];
+  }
+
   onCardClick = (stepName, stepIndex, data) => {
     console.log(`Clicked on ${stepName}. Associated Data: ${JSON.stringify(data)}`); // eslint-disable-line
   };
 
-  getStepTitle = (stepName, stepIndex) => `Step ${stepIndex + 1}`;
+  getStepTitle = (stepName, stepIndex) => this.steps[stepIndex];
 
-  getStepData = (stepName, stepIndex) => [
-    { id: 1, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
-    { id: 2, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
-    { id: 3, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
-    { id: 4, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
-    { id: 5, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
-    { id: 6, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
-    { id: 7, title: `Card ${stepIndex}:${stepName}`, content: 'Dummy content' },
-  ];
+  getStepData = (stepName, stepIndex, parentSelectedData) => {
+    switch (stepIndex) {
+      case 0:
+        return this.data;
+
+      case 1:
+        return parentSelectedData.data.sections;
+
+      case 2:
+        return parentSelectedData.data.students;
+
+      default:
+        return [];
+    }
+  }
 
   render() {
     const {
@@ -39,7 +118,7 @@ class App extends React.Component {
       <div>
         <CardTree
           getStepTitle={getStepTitle}
-          steps={['Step 1', 'Step 2', 'Step 3', 'Step 4', 'Step 5', 'Step 6', 'Step 7']}
+          steps={this.steps}
           getStepData={getStepData}
           onCardClick={this.onCardClick}
         />
