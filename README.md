@@ -4,8 +4,7 @@
  ### Example: 
  Lets assume you need to model a school. You would need to list all the `classes` first. Then each class would have different `sections`(like Class X-A, class X-B.. etc). Under each class you would have `n` students. This is a simple 3 level tree. So when a user selects class X, then he would be displayed with all the sections in it. And when he selects a section we would list all the students in it. The below is how it would look and the same is available under examples folder
 
-[Demo here](http://demo)
-
+[Demo here](http://marudhupandiyang.in/react-card-tree/)
 [Demo Source ](example/src/)
 
 ![img](https://i.imgur.com/xHGx0tD.gif?1)

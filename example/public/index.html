@@ -3,8 +3,47 @@
   <head>
     <title>Example | React Card Tree | Panther</title>
     <link href="./style.css" rel="stylesheet" />
+    <style>
+      .desc-container {
+        color: #fff;
+        width: 80%;
+        margin: 0 auto;
+      }
+
+      .github-fork-ribbon {
+        position: absolute;
+        background-color: #f80;
+        color: #fff;
+        padding: 10px 5px;
+        width: 250px;
+        text-align: center;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .github-fork-ribbon.right-top {
+        top: 50px;
+        right: -60px;
+        transform: rotate(45deg);
+      }
+
+    </style>
   </head>
   <body>
+    <a class="github-fork-ribbon right-top"
+      href="https://github.com/marudhupandiyang/react-card-tree"
+      title="Fork me on GitHub"
+      target="_blank">
+      Fork me on GitHub
+    </a>
+
+    <div class="desc-container">
+      <h2> Simple React Card Tree example </h2>
+      <p>
+        <b>Problem: </b> <br />
+        Lets assume you need to model a school. You would need to list all the <b>classes</b> first. Then each class would have different <b>sections</b>(like Class X-A, class X-B.. etc). Under each class you would have <b>n</b> students. This is a simple 3 level tree. So when a user selects class X, then he would be displayed with all the sections in it. And when he selects a section we would list all the students in it. The below is how it would look and the same is available under examples folder
+      </p>
+    </div>
     <div id="root"></div>
-  </body>
+  <script type="text/javascript" src="index.js"></script></body>
 </html>
