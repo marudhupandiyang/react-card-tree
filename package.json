@@ -1,6 +1,6 @@
 {
   "name": "react-card-tree",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Displays a react card tree",
   "main": "dist/index.js",
   "scripts": {
