@@ -593,7 +593,7 @@ var CardTree = function (_React$Component) {
           role: 'button',
           tabIndex: '0'
         },
-        _react2.default.createElement(SummaryCardComponent, { data: data })
+        _react2.default.createElement(SummaryCardComponent, { data: data, stepName: stepName, dataIndex: dataIndex })
       );
     };
 
@@ -674,7 +674,7 @@ CardTree.propTypes = {
   steps: _propTypes2.default.arrayOf(_propTypes2.default.string).isRequired,
   showSectionTitle: _propTypes2.default.bool,
   stepWidth: _propTypes2.default.number,
-  summaryCard: _propTypes2.default.object // eslint-disable-line
+  summaryCard: _propTypes2.default.func // eslint-disable-line
 };
 
 exports.default = CardTree;

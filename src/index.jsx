@@ -63,7 +63,7 @@ class CardTree extends React.Component {
         role="button"
         tabIndex="0"
       >
-        {React.createElement(SummaryCardComponent, { data })}
+        {React.createElement(SummaryCardComponent, { data, stepName, dataIndex })}
       </div>);
   }
 
@@ -132,7 +132,7 @@ CardTree.propTypes = {
   steps: PropTypes.arrayOf(PropTypes.string).isRequired,
   showSectionTitle: PropTypes.bool,
   stepWidth: PropTypes.number,
-  summaryCard: PropTypes.object, // eslint-disable-line
+  summaryCard: PropTypes.func, // eslint-disable-line
 };
 
 export default CardTree;

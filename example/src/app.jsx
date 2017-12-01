@@ -1,11 +1,10 @@
 import React from 'react';
 import CardTree from 'react-card-tree';
-
+import SummaryCard from './summaryCard';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-
     this.data = [
       {
         id: 1,
@@ -87,7 +86,7 @@ class App extends React.Component {
   }
 
   onCardClick = (stepName, stepIndex, data) => {
-    console.log(`Clicked on ${stepName}. Associated Data: ${JSON.stringify(data)}`); // eslint-disable-line
+    console.log(`Clicked on ${stepName} ${stepIndex} ${data}`); // eslint-disable-line
   };
 
   getStepTitle = (stepName, stepIndex) => this.steps[stepIndex];
@@ -121,6 +120,7 @@ class App extends React.Component {
           steps={this.steps}
           getStepData={getStepData}
           onCardClick={this.onCardClick}
+          summaryCard={SummaryCard}
         />
       </div>);
   }
