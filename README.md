@@ -2,6 +2,8 @@
 Displays a react card tree
 
 
+![img](https://i.imgur.com/ChQxrtP.gif)
+
 ## Installation
 
     npm install react-card-tree
